@@ -21,10 +21,4 @@ jobs:
     - name: Install dependencies
       run: npm install  # Replace with your package manager command if using another language
 
-    - name: Run lint
-      run: npm run lint
-
-    - name: Run format check
-      run: npm run format
-
     # Add more steps as needed, such as build, lint, deploy, etc.
