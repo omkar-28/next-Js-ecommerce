@@ -25,7 +25,7 @@ jobs:
 
     # Add more steps as needed, such as build, lint, deploy, etc.
     - name: Build Docker Image
-        run: docker build -t nextjs14cicd-docker:1.0 .
+      run: docker build -t nextjs14cicd-docker:1.0 .
 
   # deploy:
   #   name: Deploy to Heroku
