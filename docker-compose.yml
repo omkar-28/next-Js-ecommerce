@@ -1,0 +1,37 @@
+version: "3.8"
+services:
+  client-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    env_file:
+      - .env
+    networks:
+      - app-network
+  client-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    ports:
+      - "4000:4000"
+    env_file:
+      - .env
+    networks:
+      - app-network
+
+  stripe-listener:
+    image: stripe/stripe-cli:latest
+    command: ["listen",
+              "--forward-to", "http://localhost:3000/webhooks/stripe",
+              "--forward-to", "https://localhost:4000/webhooks/stripe"]
+    networks:
+      - app-network
+      
+networks:
+  app-network:
+    driver: bridge

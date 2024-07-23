@@ -1,4 +1,4 @@
-import { formatCurrency } from "@/lib/formatters"
+import { formatCurrency } from '@/lib/formatters';
 import {
   Button,
   Column,
@@ -6,21 +6,25 @@ import {
   Row,
   Section,
   Text,
-} from "@react-email/components"
+} from '@react-email/components';
 
 type OrderInformationProps = {
-  order: { id: string; createdAt: Date; pricePaidInCents: number }
-  product: { imagePath: string; name: string; description: string }
-  downloadVerificationId: string
-}
+  order: { id: string; createdAt: Date; pricePaidInCents: number };
+  product: { imagePath: string; name: string; description: string };
+  downloadVerificationId: string;
+};
 
-const dateFormatter = new Intl.DateTimeFormat("en", { dateStyle: "medium" })
+const dateFormatter = new Intl.DateTimeFormat('en', { dateStyle: 'medium' });
 
 export function OrderInformation({
   order,
   product,
   downloadVerificationId,
 }: OrderInformationProps) {
+  const SERVER =
+    process.env.NODE_ENV !== 'production'
+      ? process.env.NEXT_PUBLIC_SERVER_URL
+      : process.env.NEXT_PUBLIC_PROD_SERVER_URL;
   return (
     <>
       <Section>
@@ -53,7 +57,7 @@ export function OrderInformation({
         <Img
           width="100%"
           alt={product.name}
-          src={`${process.env.NEXT_PUBLIC_SERVER_URL}${product.imagePath}`}
+          src={`${SERVER}${product.imagePath}`}
         />
         <Row className="mt-8">
           <Column className="align-bottom">
@@ -61,7 +65,7 @@ export function OrderInformation({
           </Column>
           <Column align="right">
             <Button
-              href={`${process.env.NEXT_PUBLIC_SERVER_URL}/products/download/${downloadVerificationId}`}
+              href={`${SERVER}/products/download/${downloadVerificationId}`}
               className="bg-black text-white px-6 py-4 rounded text-lg"
             >
               Download
@@ -75,5 +79,5 @@ export function OrderInformation({
         </Row>
       </Section>
     </>
-  )
+  );
 }
